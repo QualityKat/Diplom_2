@@ -80,13 +80,15 @@ public class UserDataUpdateTest extends MethodsUserCreation {
         // Получаем токен для авторизации пользователя для последующего удаления
         String accessToken = createUserResponse.jsonPath().getString("accessToken");
         String newPassword = generateUniquePassword();
-        String requestBody = "{\"email\":\"" + email + "\", \"name\":\"" + name + "\", \"password\":\"" +newPassword + "\"}";
+        String requestBody = "{\"email\":\"" + email + "\", \"name\":\"" + name + "\", \"password\":\"" + newPassword + "\"}";
         logRequestPassword(accessToken, requestBody);
         Response updateResponse = updateUserPassword(accessToken, newPassword);
         logResponsePassword(updateResponse);
-        validateUpdatePasswordResponse(updateResponse, newPassword);
-        deleteUserByToken(accessToken);
+        validateUpdatePasswordResponse(updateResponse); // Передаем только updateResponse
+        // Удаляем пользователя после теста
+        accessToken = null; // Для того чтобы удалить в @After
     }
+
 
     @Test
     @Description("Изменение всех данных пользователя с авторизацией")

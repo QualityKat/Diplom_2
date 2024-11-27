@@ -88,7 +88,6 @@ public class UserDataUpdateTest extends MethodsUserCreation {
         // Удаляем пользователя после теста
         accessToken = null; // Для того чтобы удалить в @After
     }
-
     @Test
     @Description("Изменение всех данных пользователя с авторизацией")
     public void updateUserWithAuthorizationAllFields() {

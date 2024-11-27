@@ -28,7 +28,6 @@ public class UserOrdersTest extends MethodsUserCreation {
         // Извлечение accessToken из ответа
         this.accessToken = loginResponse.jsonPath().getString("accessToken");
     }
-
     @After
     public void tearDown() {
         // Удаление пользователя по токену

@@ -16,7 +16,6 @@ public class UserCreationTest extends MethodsUserCreation {
             deleteUserByToken(accessToken); // Удаление пользователя после теста
         }
     }
-
     @Test
     @Description("Создание уникального пользователя и удаление после проверки")
     public void creationUniqueUser() {

@@ -335,7 +335,6 @@ public class MethodsUserCreation {
         System.out.println("Ответ после обновления password:");
         System.out.println(response.prettyPrint());
     }
-
     @Step("Проверка кода и ответа обновления password пользователя с авторизацией")
     public static void validateUpdatePasswordResponse(Response response) {
         response

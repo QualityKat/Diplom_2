@@ -25,7 +25,6 @@ public class UserLoginTest extends MethodsUserCreation {
         // Используем явно вызываемое удаление пользователя внутри теста
         deleteUserByToken(accessToken);
     }
-
     @Test
     @Description("Логин с верным именем, но неверным email и паролем")
     public void loginWithInvalidCredentials() {

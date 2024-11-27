@@ -15,7 +15,6 @@ public class OrderCreationTest extends MethodsUserCreation {
             deleteUserByToken(accessToken); // Удаление пользователя после теста
         }
     }
-
     @Test
     @Description("Создание заказа с авторизацией и с ингредиентами")
     public void createOrderWithAuthorization() {

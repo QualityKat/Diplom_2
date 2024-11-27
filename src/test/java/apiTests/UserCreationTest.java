@@ -2,11 +2,20 @@ package apiTests;
 
 import io.qameta.allure.Description;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Test;
 
 public class UserCreationTest extends MethodsUserCreation {
 
     private final MethodsUserCreation userActions = new MethodsUserCreation();
+    private String accessToken; // Переменная для хранения токена, используемая в @After
+
+    @After
+    public void tearDown() {
+        if (accessToken != null) {
+            deleteUserByToken(accessToken); // Удаление пользователя после теста
+        }
+    }
 
     @Test
     @Description("Создание уникального пользователя и удаление после проверки")
@@ -18,9 +27,7 @@ public class UserCreationTest extends MethodsUserCreation {
         // Создаем пользователя
         Response response = createUniqueUser(email, password, name);
         // Проверяем ответ и сохраняем токен для последующего удаления
-        String accessToken = userActions.verifyUserCreation(response, email, name);
-        // Можно использовать явно вызываемое удаление пользователя внутри теста
-        deleteUserByToken(accessToken);
+        accessToken = userActions.verifyUserCreation(response, email, name);
     }
 
     @Test

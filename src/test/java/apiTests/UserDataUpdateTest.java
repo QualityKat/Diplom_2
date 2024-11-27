@@ -2,11 +2,19 @@ package apiTests;
 
 import io.qameta.allure.Description;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Test;
 
 public class UserDataUpdateTest extends MethodsUserCreation {
 
-    private MethodsUserCreation methodsUserLogin = new MethodsUserCreation();
+    private String accessToken;
+
+    @After
+    public void cleanup() {
+        if (accessToken != null) {
+            deleteUserByToken(accessToken);
+        }
+    }
 
     // Для авторизованного пользователя
     @Test
@@ -16,27 +24,31 @@ public class UserDataUpdateTest extends MethodsUserCreation {
         String email = generateUniqueEmail();
         String password = generateUniquePassword();
         String name = generateUniqueName();
+
         // Создаем пользователя
         Response createUserResponse = createUniqueUser(email, password, name);
         verifyUserCreation(createUserResponse, email, name);
+
         // Получаем токен для авторизации пользователя
-        String accessToken = createUserResponse.jsonPath().getString("accessToken");
+        accessToken = createUserResponse.jsonPath().getString("accessToken");
+
         // Генерация нового email для обновления
         String newEmail = generateUniqueEmail();
         // Подготовка данных для обновления email
         String requestBody = "{\"email\":\"" + newEmail + "\", \"name\":\"" + name + "\", \"password\":\"" + password + "\"}";
+
         // Логируем данные запроса
         logRequest(accessToken, requestBody);
+
         // Отправляем запрос на обновление данных пользователя
         Response updateResponse = updateUserEmail(accessToken, newEmail, password, name);
+
         // Логируем ответ
         logResponse(updateResponse);
-        // Проверяем что статус код 200 и данные обновлены
-        validateUpdateResponse(updateResponse, newEmail, name);
-        // Удаление пользователя по токену
-        deleteUserByToken(accessToken);
-    }
 
+        // Проверяем, что статус код 200 и данные обновлены
+        validateUpdateResponse(updateResponse, newEmail, name);
+    }
     @Test
     @Description("Изменение имени пользователя с авторизацией")
     public void updateUserWithAuthorizationName() {

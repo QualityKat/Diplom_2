@@ -1,7 +1,6 @@
 package apiTests;
 
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import org.junit.Test;
 import io.restassured.response.Response;
 

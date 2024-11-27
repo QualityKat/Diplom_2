@@ -337,7 +337,7 @@ public class MethodsUserCreation {
     }
 
     @Step("Проверка кода и ответа обновления password пользователя с авторизацией")
-    public static void validateUpdatePasswordResponse(Response response, String newPassword) {
+    public static void validateUpdatePasswordResponse(Response response) {
         response
                 .then()
                 .statusCode(200)
